@@ -7,12 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Previous animations remain the same */
         @keyframes gradientAnimation {
             0% { background-position: 0% 50% }
             50% { background-position: 100% 50% }
@@ -35,6 +30,12 @@
             100% { background-position: 200% 0; }
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
@@ -52,22 +53,22 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         .particle {
             position: absolute;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            animation: float 15s infinite;
+            pointer-events: none;
         }
 
         .main-wrapper {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .header {
@@ -75,13 +76,11 @@
             margin-bottom: 60px;
             color: white;
             position: relative;
-            animation: float 6s ease-in-out infinite;
         }
 
         .header h1 {
             font-size: 4rem;
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(186, 104, 200, 0.5);
             background: linear-gradient(90deg, #fff, #E9D5FF, #fff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -93,14 +92,15 @@
         .header p {
             font-size: 1.4rem;
             opacity: 0.9;
-            text-shadow: 0 0 10px rgba(186, 104, 200, 0.5);
         }
 
         #predictionForm {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, minmax(300px, 450px));
             gap: 30px;
-            margin-bottom: 40px;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 1000px;
         }
 
         .input-group {
@@ -108,32 +108,15 @@
             backdrop-filter: blur(12px);
             border-radius: 25px;
             padding: 25px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: glow 3s infinite;
             position: relative;
-            overflow: hidden;
-        }
-
-        .input-group::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: rotate(0deg);
-            transition: transform 0.5s;
+            z-index: 2;
         }
 
         .input-group:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.1);
-        }
-
-        .input-group:hover::before {
-            transform: rotate(180deg);
         }
 
         .input-label {
@@ -155,6 +138,8 @@
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -170,7 +155,7 @@
         .submit-container {
             grid-column: 1 / -1;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         button {
@@ -181,33 +166,17 @@
             border-radius: 50px;
             font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
             box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
             position: relative;
-            overflow: hidden;
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-            transform: rotate(0deg);
-            transition: transform 0.5s;
+            z-index: 3;
         }
 
         button:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
-        }
-
-        button:hover::after {
-            transform: rotate(180deg);
         }
 
         .result-card {
@@ -215,13 +184,16 @@
             backdrop-filter: blur(12px);
             border-radius: 25px;
             padding: 40px;
-            margin-top: 50px;
+            margin: 50px auto 0;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
+            max-width: 800px;
             transform: translateY(20px);
             opacity: 0;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .result-card.visible {
@@ -230,8 +202,8 @@
         }
 
         .result-card h2 {
-            margin-bottom: 20px;
             font-size: 2.5rem;
+            margin-bottom: 20px;
             background: linear-gradient(90deg, #E9D5FF, #fff, #E9D5FF);
             -webkit-background-clip: text;
             background-clip: text;
@@ -245,6 +217,12 @@
             opacity: 0.9;
         }
 
+        @media (max-width: 1024px) {
+            #predictionForm {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2.5rem;
@@ -253,13 +231,16 @@
             #predictionForm {
                 grid-template-columns: 1fr;
             }
+
+            .input-group {
+                margin: 0 auto;
+                max-width: 450px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="particles">
-        <!-- Particles will be added by JavaScript -->
-    </div>
+    <div class="particles"></div>
     <div class="main-wrapper">
         <div class="header">
             <h1><i class="fas fa-user-friends"></i> Clustify</h1>
@@ -339,6 +320,7 @@
                 particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.top = Math.random() * 100 + 'vh';
                 particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animation = `float ${Math.random() * 10 + 5}s infinite`;
                 particles.appendChild(particle);
             }
         }
