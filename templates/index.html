@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustify - Customer Segmentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-user-friends"></i> Clustify: Customer Insights</h1>
+        <form id="predictionForm">
+            <input type="number" name="Age" placeholder="Age">
+            <input type="text" name="Gender" placeholder="Gender">
+            <input type="number" name="Income" placeholder="Annual Income">
+            <input type="text" name="Education_Level" placeholder="Education Level">
+            <input type="text" name="Geographic_Location" placeholder="Geographic Location">
+            <input type="number" name="Website_Visits_Frequency" placeholder="Website Visit Frequency">
+            <input type="number" name="Time_Spent_On_Platform" placeholder="Time Spent On Platform (mins)">
+            <input type="number" name="Recency_Of_Last_Interaction" placeholder="Recency of Last Interaction (days)">
+            <input type="number" name="Products_Purchased" placeholder="Products Purchased">
+            <input type="text" name="Categories_Browsed" placeholder="Categories Browsed">
+            <input type="number" name="Total_Spending" placeholder="Total Spending">
+            <input type="number" name="Average_Order_Value" placeholder="Average Order Value">
+            <input type="number" name="Number_Of_Transactions" placeholder="Number of Transactions">
+            <select name="Subscription_Status">
+                <option value="" disabled selected>Subscription Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <input type="number" name="Click_Through_Rate" placeholder="Click Through Rate (%)">
+            <input type="number" name="Email_Open_Rate" placeholder="Email Open Rate (%)">
+            <input type="number" name="Social_Media_Interactions" placeholder="Social Media Interactions">
+            <textarea name="Interests" placeholder="Interests (Comma-separated)"></textarea>
+            <input type="number" name="Satisfaction_Rating" placeholder="Satisfaction Rating (1-5)">
+            <input type="number" name="Pages_Read" placeholder="Pages Read">
+            <input type="number" name="Videos_Watched" placeholder="Videos Watched">
+            <input type="text" name="Preferred_Content_Format" placeholder="Preferred Content Format">
+            <button type="submit">Predict Customer Segment</button>
+        </form>
+        <div id="result" class="result-card" style="display: none;">
+            <h2>Predicted Customer Category</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (value) {
+                    data[key] = value;
+                }
+            });
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('resultText').textContent = result.predicted_label || result.error;
+                document.getElementById('result').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
