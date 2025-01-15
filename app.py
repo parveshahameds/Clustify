@@ -1,18 +1,30 @@
 from flask import Flask, render_template, request, jsonify
 import pickle
 import pandas as pd
+# import requests
+# import os
 
 app = Flask(__name__)
 
-# Load the trained model
-with open('customer_segmentation_model.pkl', 'rb') as model_file:
-    model_dict = pickle.load(model_file)
-    if isinstance(model_dict, dict) and 'model' in model_dict:
-        model = model_dict['model']
-        label_encoders = model_dict.get('label_encoders', {})
-        target_encoder = model_dict.get('target_encoder', {})
-    else:
-        raise ValueError("Loaded model is not in the expected format.")
+# URL to download the model from an external source (e.g., Google Drive, GitHub)
+# model_url = "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID"
+model_path = "./customer_segmentation_model.pkl"
+
+def load_model():
+    # if not os.path.exists(model_path):
+    #     response = requests.get(model_url)
+    #     with open(model_path, 'wb') as model_file:
+    #         model_file.write(response.content)
+
+    with open(model_path, 'rb') as model_file:
+        model_dict = pickle.load(model_file)
+        if isinstance(model_dict, dict) and 'model' in model_dict:
+            model = model_dict['model']
+            label_encoders = model_dict.get('label_encoders', {})
+            target_encoder = model_dict.get('target_encoder', {})
+        else:
+            raise ValueError("Loaded model is not in the expected format.")
+    return model, label_encoders, target_encoder
 
 # Preprocess input for demonstration
 def preprocess_input(user_input, label_encoders):
@@ -29,6 +41,7 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        model, label_encoders, target_encoder = load_model()
         user_input = request.get_json()
         processed_input = preprocess_input(user_input, label_encoders)
 
