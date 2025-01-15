@@ -1,119 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clustify - Customer Segmentation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* height: 100vh; */
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            max-width: 600px;
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(2deg); }
+            75% { transform: translateY(15px) rotate(-2deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(186, 104, 200, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(186, 104, 200, 0.6); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #8B5CF6, #4C1D95, #7C3AED, #2E1065);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        .main-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
             text-align: center;
-            color: #333;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #007BFF;
-        }
-
-        input,
-        select,
-        textarea,
-        button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #007BFF;
+            margin-bottom: 60px;
             color: white;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(186, 104, 200, 0.5);
+            background: linear-gradient(90deg, #fff, #E9D5FF, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            text-shadow: 0 0 10px rgba(186, 104, 200, 0.5);
+        }
+
+        #predictionForm {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: glow 3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-group::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(0deg);
+            transition: transform 0.5s;
+        }
+
+        .input-group:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .input-label {
+            color: #E9D5FF;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 25px rgba(186, 104, 200, 0.4);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-container {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #8B5CF6, #4C1D95);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: rotate(0deg);
+            transition: transform 0.5s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
         }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: #888;
+        button:hover::after {
+            transform: rotate(180deg);
         }
 
-        h2 {
-            margin-top: 20px;
-            font-size: 20px;
-            color: #007BFF;
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 50px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .result-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .result-card h2 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #E9D5FF, #fff, #E9D5FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        #resultText {
+            font-size: 1.8rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            #predictionForm {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1><i class="fas fa-user-friends"></i> Clustify: Customer Insights</h1>
+    <div class="particles">
+        <!-- Particles will be added by JavaScript -->
+    </div>
+    <div class="main-wrapper">
+        <div class="header">
+            <h1><i class="fas fa-user-friends"></i> Clustify</h1>
+            <p>Discover Your Customer Segments</p>
+        </div>
+        
         <form id="predictionForm">
-            <input type="number" name="Age" placeholder="Age">
-            <input type="text" name="Gender" placeholder="Gender">
-            <input type="number" name="Income" placeholder="Annual Income">
-            <input type="text" name="Education_Level" placeholder="Education Level">
-            <input type="text" name="Geographic_Location" placeholder="Geographic Location">
-            <input type="number" name="Website_Visits_Frequency" placeholder="Website Visit Frequency">
-            <input type="number" name="Time_Spent_On_Platform" placeholder="Time Spent On Platform (mins)">
-            <input type="number" name="Recency_Of_Last_Interaction" placeholder="Recency of Last Interaction (days)">
-            <input type="number" name="Products_Purchased" placeholder="Products Purchased">
-            <input type="text" name="Categories_Browsed" placeholder="Categories Browsed">
-            <input type="number" name="Total_Spending" placeholder="Total Spending">
-            <input type="number" name="Average_Order_Value" placeholder="Average Order Value">
-            <input type="number" name="Number_Of_Transactions" placeholder="Number of Transactions">
-            <select name="Subscription_Status">
-                <option value="" disabled selected>Subscription Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-            </select>
-            <input type="number" name="Click_Through_Rate" placeholder="Click Through Rate (%)">
-            <input type="number" name="Email_Open_Rate" placeholder="Email Open Rate (%)">
-            <input type="number" name="Social_Media_Interactions" placeholder="Social Media Interactions">
-            <textarea name="Interests" placeholder="Interests (Comma-separated)"></textarea>
-            <input type="number" name="Satisfaction_Rating" placeholder="Satisfaction Rating (1-5)">
-            <input type="number" name="Pages_Read" placeholder="Pages Read">
-            <input type="number" name="Videos_Watched" placeholder="Videos Watched">
-            <input type="text" name="Preferred_Content_Format" placeholder="Preferred Content Format">
-            <button type="submit">Predict Customer Segment</button>
+            <div class="input-group">
+                <div class="input-label">Personal Profile</div>
+                <input type="number" name="Age" placeholder="Age">
+                <input type="text" name="Gender" placeholder="Gender">
+                <input type="number" name="Income" placeholder="Annual Income">
+                <input type="text" name="Education_Level" placeholder="Education Level">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">Location & Activity</div>
+                <input type="text" name="Geographic_Location" placeholder="Geographic Location">
+                <input type="number" name="Website_Visits_Frequency" placeholder="Website Visit Frequency">
+                <input type="number" name="Time_Spent_On_Platform" placeholder="Time Spent On Platform (mins)">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">Purchase Analysis</div>
+                <input type="number" name="Products_Purchased" placeholder="Products Purchased">
+                <input type="text" name="Categories_Browsed" placeholder="Categories Browsed">
+                <input type="number" name="Total_Spending" placeholder="Total Spending">
+                <input type="number" name="Average_Order_Value" placeholder="Average Order Value">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">Engagement Stats</div>
+                <input type="number" name="Number_Of_Transactions" placeholder="Number of Transactions">
+                <select name="Subscription_Status">
+                    <option value="" disabled selected>Subscription Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <input type="number" name="Click_Through_Rate" placeholder="Click Through Rate (%)">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">Content Metrics</div>
+                <input type="number" name="Pages_Read" placeholder="Pages Read">
+                <input type="number" name="Videos_Watched" placeholder="Videos Watched">
+                <input type="text" name="Preferred_Content_Format" placeholder="Preferred Content Format">
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">Social Engagement</div>
+                <input type="number" name="Email_Open_Rate" placeholder="Email Open Rate (%)">
+                <input type="number" name="Social_Media_Interactions" placeholder="Social Media Interactions">
+                <textarea name="Interests" placeholder="Interests (Comma-separated)"></textarea>
+                <input type="number" name="Satisfaction_Rating" placeholder="Satisfaction Rating (1-5)">
+            </div>
+
+            <div class="submit-container">
+                <button type="submit">Analyze Profile</button>
+            </div>
         </form>
-        <div id="result" class="result-card" style="display: none;">
-            <h2>Predicted Customer Category</h2>
+
+        <div id="result" class="result-card">
+            <h2>Customer Segment Analysis</h2>
             <p id="resultText"></p>
         </div>
     </div>
+
     <script>
-        document.getElementById('predictionForm').addEventListener('submit', function (event) {
+        // Create floating particles
+        function createParticles() {
+            const particles = document.querySelector('.particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        document.getElementById('predictionForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const formData = new FormData(event.target);
             const data = {};
@@ -130,16 +362,18 @@
                 },
                 body: JSON.stringify(data)
             })
-                .then(response => response.json())
-                .then(result => {
-                    document.getElementById('resultText').textContent = result.predicted_label || result.error;
-                    document.getElementById('result').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            .then(response => response.json())
+            .then(result => {
+                const resultCard = document.getElementById('result');
+                document.getElementById('resultText').textContent = result.predicted_label || result.error;
+                resultCard.style.display = 'block';
+                setTimeout(() => resultCard.classList.add('visible'), 100);
+                resultCard.scrollIntoView({ behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>
-
 </html>
