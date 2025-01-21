@@ -1,0 +1,68 @@
+2025-01-21 20:50:09,250 - __main__ - INFO - Starting app on port 5000
+2025-01-21 20:50:09,268 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-21 20:50:09,268 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-21 20:50:13,741 - __main__ - INFO - Model loaded successfully
+2025-01-21 20:50:13,742 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Education_Level': "Bachelor's"}
+2025-01-21 20:50:13,757 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 20:50:13,757 - __main__ - ERROR - Error during prediction: Object of type ndarray is not JSON serializable
+2025-01-21 20:50:13,760 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:50:13] "POST /predict HTTP/1.1" 200 -
+2025-01-21 20:51:30,963 - __main__ - INFO - Model loaded successfully
+2025-01-21 20:51:30,963 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Education_Level': "Bachelor's"}
+2025-01-21 20:51:30,968 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 20:51:30,968 - __main__ - ERROR - Error during prediction: Object of type ndarray is not JSON serializable
+2025-01-21 20:51:30,971 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:51:30] "POST /predict HTTP/1.1" 200 -
+2025-01-21 20:51:48,177 - __main__ - INFO - Starting app on port 5000
+2025-01-21 20:51:48,215 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-21 20:51:48,216 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-21 20:51:48,998 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:51:48] "GET / HTTP/1.1" 200 -
+2025-01-21 20:51:49,383 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:51:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-21 20:51:59,380 - __main__ - INFO - Model loaded successfully
+2025-01-21 20:51:59,381 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000'}
+2025-01-21 20:51:59,400 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 20:51:59,401 - __main__ - ERROR - Error during prediction: name 'np' is not defined
+2025-01-21 20:51:59,403 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:51:59] "POST /predict HTTP/1.1" 200 -
+2025-01-21 20:52:29,855 - __main__ - INFO - Starting app on port 5000
+2025-01-21 20:52:29,901 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-21 20:52:29,901 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-21 20:52:29,902 - werkzeug - INFO -  * Restarting with stat
+2025-01-21 20:52:30,950 - __main__ - INFO - Starting app on port 5000
+2025-01-21 20:52:31,012 - werkzeug - WARNING -  * Debugger is active!
+2025-01-21 20:52:31,019 - werkzeug - INFO -  * Debugger PIN: 521-919-804
+2025-01-21 20:52:32,102 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:52:32] "GET / HTTP/1.1" 200 -
+2025-01-21 20:52:32,549 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:52:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-21 20:52:53,193 - __main__ - INFO - Model loaded successfully
+2025-01-21 20:52:53,193 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Education_Level': 'Dolorem qui et offic'}
+2025-01-21 20:52:53,220 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 20:52:53,222 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:52:53] "POST /predict HTTP/1.1" 200 -
+2025-01-21 20:55:47,065 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:55:47] "GET / HTTP/1.1" 200 -
+2025-01-21 20:57:06,946 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 20:57:06] "GET / HTTP/1.1" 200 -
+2025-01-21 21:00:42,716 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:00:42] "GET / HTTP/1.1" 200 -
+2025-01-21 21:00:47,658 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:00:47] "GET / HTTP/1.1" 200 -
+2025-01-21 21:00:48,364 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:00:48] "GET / HTTP/1.1" 200 -
+2025-01-21 21:01:17,809 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:01:17] "GET / HTTP/1.1" 200 -
+2025-01-21 21:01:18,748 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:01:18] "GET / HTTP/1.1" 200 -
+2025-01-21 21:01:19,120 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:01:19] "GET / HTTP/1.1" 200 -
+2025-01-21 21:01:19,274 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:01:19] "GET / HTTP/1.1" 200 -
+2025-01-21 21:01:19,488 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:01:19] "GET / HTTP/1.1" 200 -
+2025-01-21 21:05:42,111 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:05:42] "GET / HTTP/1.1" 200 -
+2025-01-21 21:15:23,326 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:15:23] "GET / HTTP/1.1" 200 -
+2025-01-21 21:15:58,456 - __main__ - INFO - Model loaded successfully
+2025-01-21 21:15:58,457 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Education_Level': "Bachelor's", 'Geographic_Location': 'Chennai', 'Website_Visits_Frequency': '8', 'Time_Spent_On_Platform': '23', 'Subscription_Status': 'Active', 'Social_Media_Interactions': '21'}
+2025-01-21 21:15:58,460 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 21:15:58,462 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:15:58] "POST /predict HTTP/1.1" 200 -
+2025-01-21 21:16:02,483 - __main__ - INFO - Model loaded successfully
+2025-01-21 21:16:02,483 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Education_Level': "Bachelor's", 'Geographic_Location': 'Chennai', 'Website_Visits_Frequency': '8', 'Time_Spent_On_Platform': '23', 'Subscription_Status': 'Active', 'Social_Media_Interactions': '21'}
+2025-01-21 21:16:02,485 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 21:16:02,487 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:16:02] "POST /predict HTTP/1.1" 200 -
+2025-01-21 21:16:42,139 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:16:42] "GET / HTTP/1.1" 200 -
+2025-01-21 21:17:10,968 - __main__ - INFO - Model loaded successfully
+2025-01-21 21:17:10,968 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Geographic_Location': 'Chennai', 'Time_Spent_On_Platform': '23', 'Products_Purchased': '23', 'Categories_Browsed': 'Home Decor', 'Subscription_Status': 'disabled selected'}
+2025-01-21 21:17:10,971 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 21:17:10,972 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:17:10] "POST /predict HTTP/1.1" 200 -
+2025-01-21 21:17:43,537 - __main__ - INFO - Model loaded successfully
+2025-01-21 21:17:43,537 - __main__ - INFO - Received input: {'Age': '44', 'Gender': 'Male', 'Income': '75000', 'Geographic_Location': 'Chennai', 'Time_Spent_On_Platform': '23', 'Products_Purchased': '23', 'Categories_Browsed': 'Home Decor', 'Subscription_Status': 'Active'}
+2025-01-21 21:17:43,543 - __main__ - INFO - Predicted label: ['Low Engagement Individuals']
+2025-01-21 21:17:43,545 - werkzeug - INFO - 127.0.0.1 - - [21/Jan/2025 21:17:43] "POST /predict HTTP/1.1" 200 -
