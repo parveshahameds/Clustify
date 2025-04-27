@@ -21,7 +21,7 @@ Backend: Node.js, Express.js
 
 Machine Learning: Python, Scikit-learn
 
-Deployment: Render, Vercel
+Deployment: Render
 
 # Installation
 
